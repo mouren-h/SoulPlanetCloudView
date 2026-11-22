@@ -2,38 +2,43 @@ package mr.x.soulplanetcloudview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
+import android.util.Log;
 import me.haowen.soulplanet.view.SoulPlanetsView;
 
-/**
- * SoulPlanetCloudView
- *
- * Soul 星球云控件
- *
- * 直接继承 SoulPlanetsView
- * 兼容 XML 布局加载
- * 避免原始 JAR 缺少 R$styleable 导致闪退
- */
 public class SoulPlanetCloudView extends SoulPlanetsView {
+
+    private static final String TAG = "SoulPlanetDebug";
 
     public SoulPlanetCloudView(Context context) {
         super(context);
+        logId("构造器1");
+    }
+
+    public SoulPlanetCloudView(Context context, AttributeSet attrs) {
+        super(context);
+
+        int xmlId = attrs == null ? -1 :
+            attrs.getAttributeResourceValue(
+                "http://schemas.android.com/apk/res/android",
+                "id",
+                -1
+            );
+
+        Log.e(TAG, "构造器2，XML声明的ID：" + xmlId);
+
+        logId("构造器2");
     }
 
     public SoulPlanetCloudView(
-            Context context,
-            AttributeSet attrs) {
-
-        // 不传递 attrs，避免访问缺失的 R$styleable
+        Context context,
+        AttributeSet attrs,
+        int defStyleAttr
+    ) {
         super(context);
+        logId("构造器3");
     }
 
-    public SoulPlanetCloudView(
-            Context context,
-            AttributeSet attrs,
-            int defStyleAttr) {
-
-        // 不传递 attrs，避免访问缺失的 R$styleable
-        super(context);
+    private void logId(String position) {
+        Log.e(TAG, position + "，当前View ID：" + getId());
     }
 }
