@@ -8,10 +8,11 @@ import me.haowen.soulplanet.view.SoulPlanetsView;
 /**
  * SoulPlanetCloudView
  *
- * Soul 星球列表控件
+ * Soul 星球云控件
  *
  * 直接继承 SoulPlanetsView
- * 保留原始控件的全部公开属性和方法
+ * 兼容 XML 布局加载
+ * 避免原始 JAR 缺少 R$styleable 导致闪退
  */
 public class SoulPlanetCloudView extends SoulPlanetsView {
 
@@ -19,15 +20,20 @@ public class SoulPlanetCloudView extends SoulPlanetsView {
         super(context);
     }
 
-    public SoulPlanetCloudView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public SoulPlanetCloudView(
+            Context context,
+            AttributeSet attrs) {
+
+        // 不传递 attrs，避免访问缺失的 R$styleable
+        super(context);
     }
 
     public SoulPlanetCloudView(
             Context context,
             AttributeSet attrs,
             int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
 
+        // 不传递 attrs，避免访问缺失的 R$styleable
+        super(context);
+    }
 }
